@@ -1,0 +1,14 @@
+import random
+import re
+
+message = "The quick brown {cat|fox|dog} jumped {under|over|from} the dog. {Then it attacked.|Then it ran.|Then fell.}"
+list = []
+list = re.findall("{.*?}", message) # find content to spin surrounded by curly quotes
+
+for line in list:
+    stripped_line = re.sub('[{}]', '', line) # strip off the curly brackets
+    split_line = stripped_line.split('|') # split the stripped line with pipe
+    random_string = random.choice(split_line) # select a random choice from the split values
+    message = message.replace(line, random_string) # update the original message with spun content
+
+    print(message)
